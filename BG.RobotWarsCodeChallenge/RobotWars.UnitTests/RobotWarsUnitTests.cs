@@ -11,7 +11,8 @@ namespace RobotWars.UnitTests
         public RobotWarsUnitTests()
         {
             _arenaController = new ArenaController();
-            _arenaController.AddRobots();
+            _arenaController.AddRobots(1, 1, 2, "N");
+            _arenaController.AddRobots(2, 3, 3, "E");
             _arenaController.PlaceRobotInStartPosition();
         }
 

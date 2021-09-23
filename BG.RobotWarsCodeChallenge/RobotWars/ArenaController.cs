@@ -18,25 +18,50 @@ namespace RobotWars
 
         #region [ Arena Setup ]
 
-        public void AddRobots()
+        public void AddRobots(int id, int row, int col, string cardinal)
         {
-            Robots = new List<RobotModel>()
+            var robot = new RobotModel()
             {
-                new RobotModel()
+                Id = id,
+                RowNumber = row,
+                ColumnNumber = col,
+                CardinalDirection = cardinal switch
                 {
-                    Id = 1,
-                    RowNumber = 1,
-                    ColumnNumber = 2,
-                    CardinalDirection = Cardinal.North
-                },
-                new RobotModel()
-                {
-                    Id = 2,
-                    RowNumber = 3,
-                    ColumnNumber = 3,
-                    CardinalDirection = Cardinal.East
+                    "N" => Cardinal.North,
+                    "E" => Cardinal.East,
+                    "S" => Cardinal.South,
+                    "W" => Cardinal.West,
+                    _ => throw new System.NotImplementedException()
                 }
             };
+
+            Robots.Add(robot);
+
+
+            //Robots = new List<RobotModel>()
+            //{
+            //    new RobotModel()
+            //    {
+            //        Id = 1,
+            //        RowNumber = row,
+            //        ColumnNumber = col,
+            //        CardinalDirection = cardinal switch
+            //        {
+            //            "N" => Cardinal.North,
+            //            "E" => Cardinal.East,
+            //            "S" => Cardinal.South,
+            //            "W" => Cardinal.West
+            //            _   => null
+            //         }
+            //    },
+            //    new RobotModel()
+            //    {
+            //        Id = 2,
+            //        RowNumber = 3,
+            //        ColumnNumber = 3,
+            //        CardinalDirection = Cardinal.East
+            //    }
+            //};
         }
 
         public void PlaceRobotInStartPosition()
@@ -45,11 +70,11 @@ namespace RobotWars
             {
                 for (int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    int yes = Robots.FindIndex(l => l.RowNumber == i && l.ColumnNumber == j);
+                    int foundId = Robots.FindIndex(l => l.RowNumber == i && l.ColumnNumber == j);
 
-                    if (yes >= 0)
+                    if (foundId >= 0)
                     {
-                        Cells[i, j] = Robots[yes].Id;
+                        Cells[i, j] = Robots[foundId].Id;
                     }
                 }
             }
