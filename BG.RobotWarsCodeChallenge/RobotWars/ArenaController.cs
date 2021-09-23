@@ -36,32 +36,6 @@ namespace RobotWars
             };
 
             Robots.Add(robot);
-
-
-            //Robots = new List<RobotModel>()
-            //{
-            //    new RobotModel()
-            //    {
-            //        Id = 1,
-            //        RowNumber = row,
-            //        ColumnNumber = col,
-            //        CardinalDirection = cardinal switch
-            //        {
-            //            "N" => Cardinal.North,
-            //            "E" => Cardinal.East,
-            //            "S" => Cardinal.South,
-            //            "W" => Cardinal.West
-            //            _   => null
-            //         }
-            //    },
-            //    new RobotModel()
-            //    {
-            //        Id = 2,
-            //        RowNumber = 3,
-            //        ColumnNumber = 3,
-            //        CardinalDirection = Cardinal.East
-            //    }
-            //};
         }
 
         public void PlaceRobotInStartPosition()
@@ -171,6 +145,8 @@ namespace RobotWars
         public void MoveRobot(int robotId)
         {
             int robotIndex = Robots.FindIndex(l => l.Id == robotId);
+
+            // Grab the existing row/column before proceeding
             int robotRow = Robots[robotIndex].RowNumber;
             int robotCol = Robots[robotIndex].ColumnNumber;
 
@@ -180,6 +156,8 @@ namespace RobotWars
                 {
                     if (robotRow == i && robotCol == j)
                     {
+                        // Empty the cell we are in before moving to an new cell position
+                        // The rest will update the robots old row/column, with the new cell row/column
                         Cells[i, j] = 0;
 
                         if (Robots[robotIndex].CardinalDirection == Cardinal.North)
